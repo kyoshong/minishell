@@ -26,13 +26,22 @@ void	split_command(char *str)
 		parsing(semi[i++]);
 }
 
-int	main(int ac, char **av, char **env)
+void 	ctrl_c(int sig)
+{
+	write(1, "\n", 1);
+	print_prompt(g_env);
+	signal(SIGINT, ctrl_c);
+}
+
+int		main(int ac, char **av, char **env)
 {
 	char *input;
 	char *line;
 
+	g_env = env;
 	while(1)
 	{
+		signal(SIGINT, ctrl_c);
 		print_prompt(env);
 		get_next_line(0, &line);
 		split_command(line);
