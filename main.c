@@ -26,19 +26,16 @@ void	split_command(char *str)
 		parsing(semi[i++]);
 }
 
-int	main(void)
+int	main(int ac, char **av, char **env)
 {
 	char *input;
+	char *line;
 
 	while(1)
 	{
-		input = readline("input: ");
-		if (input == NULL)
-			break ;
-		else
-		{
-			split_command(input);
-		}
+		print_prompt(env);
+		get_next_line(0, &line);
+		split_command(line);
 		// printf("%s\n", input);
 	}
 
